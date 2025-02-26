@@ -1,7 +1,4 @@
-const placesContainer = document.querySelector('.places__list');
-const cardImage = document.querySelector('.popup_type_image');
-
-export function createCards(card) {
+export function createCards(card, openModalImages) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.places__item').cloneNode(true);
   const deleteButton = cardElement.querySelector('.card__delete-button');
@@ -33,16 +30,3 @@ export function deleteCard(deleteButton) {
 export function likeCard(likeButton) {
   likeButton.classList.toggle('card__like-button_is-active');
 };
-
-export function renderCard(cardElement) {
-  placesContainer.append(cardElement);
-};
-
-export function openModalImages(card) {
-  cardImage.classList.add('popup_is-opened', 'popup_is-animated');
-  const image = cardImage.querySelector('.popup__image');
-  const cardtext = cardImage.querySelector('.popup__caption');
-  image.src = card.link;
-  image.alt = card.name;
-  cardtext.textContent = card.name;
-}
