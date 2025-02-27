@@ -28,8 +28,11 @@ const nameInput = document.querySelector('.popup__input_type_name');// Восп�
 const jobInput = document.querySelector('.popup__input_type_description');// Воспользуйтесь инструментом .querySelector()
 
 const placeForm = document.querySelector('.popup__form_new-card');
-const newCard = document.querySelector('.popup_type_new-card');
+const typeNewCard = document.querySelector('.popup_type_new-card');
 const cardImage = document.querySelector('.popup_type_image');
+const cardTitleInput = document.querySelector('.popup__input_type_card-name');
+const cardLinkInput = document.querySelector('.popup__input_type_url');
+const placesContainer = document.querySelector('.places__list');
 
 function openModalImages(card) {
     const image = cardImage.querySelector('.popup__image');
@@ -40,7 +43,6 @@ function openModalImages(card) {
     openModal(cardImage);
 }
 
-closeModalEsc();
 closeModalOverlay();
 
 const buttonElement = document.querySelector('.profile__edit-button');
@@ -52,7 +54,7 @@ buttonElement.addEventListener('click', () => {
 
 const buttonAdd = document.querySelector('.profile__add-button');
 buttonAdd.addEventListener('click', () => {
-    openModal(newCard);
+    openModal(typeNewCard);
 });
 
 const closeElement = document.querySelector('.popup__close');
@@ -62,7 +64,7 @@ closeElement.addEventListener('click', () => {
 
 const closeNewCard = document.querySelector('.popup__close_new_card');
 closeNewCard.addEventListener('click', () => {
-    closeModal(newCard);
+    closeModal(typeNewCard);
 });
 
 const cardImageClose = document.querySelector('.popup__close__image');
@@ -72,18 +74,17 @@ cardImageClose.addEventListener('click', () => {
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function profileFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     // Получите значение полей jobInput и nameInput из свойства value
 
     profileName.textContent = nameInput.value;// Выберите элементы, куда должны быть вставлены значения полей
     profileJob.textContent = jobInput.value;// Вставьте новые значения с помощью textContent
     const popup = profileForm.closest('.popup');
-    popup.classList.remove('popup_is-opened');
+    closeModal(popup);
 }
 
 function renderCard(cardElement) {
-    const placesContainer = document.querySelector('.places__list');
     placesContainer.append(cardElement);
 };
 
@@ -94,19 +95,15 @@ initialCards.forEach((card) => {
 function addCard(evt) {
     evt.preventDefault();
 
-    const cardTitleInput = document.querySelector('.popup__input_type_card-name');
-    const cardLinkInput = document.querySelector('.popup__input_type_url');
     const newCard = { name: cardTitleInput.value, link: cardLinkInput.value };
-    const elemensCard = createCards(newCard, openModalImages)
-    const popupNewCard = document.querySelector('.popup_type_new-card');
-    const placesContainer = document.querySelector('.places__list');
+    const elemensCard = createCards(newCard, openModalImages);
 
     placesContainer.prepend(elemensCard);
     placeForm.reset();
-    closeModal(popupNewCard);
+    closeModal(typeNewCard);
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-profileForm.addEventListener('submit', profileFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', addCard);
