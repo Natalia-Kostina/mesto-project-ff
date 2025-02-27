@@ -5,15 +5,15 @@ export function openModal(popup) {
 
 export function closeModal(popup) {
     popup.classList.remove('popup_is-opened', 'popup_is-animated');
-    document.removeEventListener('keydown', closeModalEsc); 
+    document.removeEventListener('keydown', closeModalEsc);
 }
 
 export function closeModalEsc(evt) {
-        if (evt.key === 'Escape') {
-            const openedPopup = document.querySelector('.popup_is-opened');
-            closeModal(openedPopup);
-        }
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        closeModal(openedPopup);
     }
+}
 
 export function closeModalOverlay() {
     const popupEdit = document.querySelector('.popup_type_edit');
